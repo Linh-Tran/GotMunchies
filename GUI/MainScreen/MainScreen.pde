@@ -1,6 +1,6 @@
-import controlP5.*;
+
 void setup(){
-  
+  fullScreen();
 }
 void draw() {
   //make a box
