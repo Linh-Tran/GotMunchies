@@ -20,15 +20,18 @@ void openStore(){
       while(order==null){
         order = customer.readStringUntil('\n');
       }
-      print(order+"\n");
-      
-      if(order.contains(newLocation)) broadcastMenu(everyone+order);
+      if(order.contains(newLocation)){ 
+        broadcastMenu(everyone+order);
+      }
       else if(order.contains(newCustomer) && !customerInLine.containsKey(customer)){
-          String name = order.substring(newCustomer.length());
-          customerInLine.put(customer,name);
-          broadcastMenu(idPrefix+name+newCustomer+name+"\n"+
-          idPrefix+name+" Successful upload!");
-          for(String gps:GPScoordinates) broadcastMenu(idPrefix+name+" "+newLocation+gps);
+        
+        String name = order.substring(newCustomer.length());
+        customerInLine.put(customer,name);
+        broadcastMenu(idPrefix+name+" "+newCustomer+name);
+        //broadcastMenu(idPrefix+name+" Successful upload!");
+        for(String gps:GPScoordinates) {
+          broadcastMenu(idPrefix+name+" "+newLocation+gps);
+        }
       }
       else if(order.contains(logout)){
         broadcastMenu(idPrefix+customerInLine.get(customer)+" Logging out!");
