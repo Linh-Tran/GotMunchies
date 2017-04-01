@@ -4,23 +4,27 @@ import java.util.*;
 Client customer; 
 private String ID;
 private List<String> coordinates;
- 
+public boolean ready = true; 
  
  
  void sendLocation(String GPS, String msg){
+   print(GPS+msg);
    customer.write(newLocation + GPS + ";" + msg + "\n");
  }
  
 void setup() { 
+    fullScreen();
+
   customer = new Client(this, "127.0.0.1", 5204); 
   coordinates = new ArrayList<String>();
   customer.write("New Customer: Hello World\n");
   ID = idPrefix+"Hello World";
+  ready = true;
   customer.write("GPS: 1314242\n");
-  customer.write(idPrefix + "Failed message!:\n");
 } 
 void draw(){
-  if(customer.available() > 0)
+  drawMainScreen();
+  if(customer.available() > 0 && ready)
   {
     String message=null;
     while(message==null){
@@ -48,7 +52,7 @@ void draw(){
       else if(message.contains(cardAccepted)){
         print("Thank you, come again :)!");
       }
-      
+      ready = false;
     }
    
   }
