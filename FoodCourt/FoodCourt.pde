@@ -35,13 +35,13 @@ void openStore(){
         }
       }
       else if(order.contains(logout)){
-        broadcastMenu(idPrefix+customerInLine.get(customer)+" Logging out!");
+        broadcastMenu(idPrefix+customerInLine.get(customer)+ logout);
         customerInLine.remove(customer);
         myServer.disconnect(customer);
       }
       else if(customerInLine.containsKey(customer))
       {
-        broadcastMenu(idPrefix+customerInLine.get(customer)+" Failed message!");
+        broadcastMenu(idPrefix+customerInLine.get(customer)+ cardDecline);
       }
     }
   }
