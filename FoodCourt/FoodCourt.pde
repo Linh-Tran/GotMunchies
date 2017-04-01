@@ -3,6 +3,7 @@ import java.util.*;
 //kim is comment
 Server myServer;
 Map<Client,String> customerInLine;
+List<String> GPScoordinates = new ArrayList<String>();
 
 void setup() {
   // Starts a myServer on port 5204
@@ -19,14 +20,18 @@ void openStore(){
       while(order==null){
         order = customer.readStringUntil('\n');
       }
-      print(order+"\n");
-      
-      if(order.contains(newLocation)) broadcastMenu(order);
-      else if(order.contains(newCustomer)){
-          print(order.substring(newCustomer.length()));
-          customerInLine.put(customer,order.substring(newCustomer.length()));
-          broadcastMenu("New Guy: "+order.substring(newCustomer.length())+"\n"+
-          idPrefix+customerInLine.get(customer)+"Successful upload!");
+      if(order.contains(newLocation)){ 
+        broadcastMenu(everyone+order);
+      }
+      else if(order.contains(newCustomer) && !customerInLine.containsKey(customer)){
+        
+        String name = order.substring(newCustomer.length());
+        customerInLine.put(customer,name);
+        broadcastMenu(idPrefix+name+" "+newCustomer+name);
+        //broadcastMenu(idPrefix+name+" Successful upload!");
+        for(String gps:GPScoordinates) {
+          broadcastMenu(idPrefix+name+" "+newLocation+gps);
+        }
       }
       else if(order.contains(logout)){
         broadcastMenu(idPrefix+customerInLine.get(customer)+" Logging out!");
@@ -45,5 +50,5 @@ void openStore(){
 * Update all the customer's map
 */
 void broadcastMenu(String message){
-  myServer.write(message+"\n");
+  myServer.write(message);
 }
