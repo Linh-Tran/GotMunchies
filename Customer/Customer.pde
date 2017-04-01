@@ -16,18 +16,20 @@ public boolean ready = true;
  
 void setup() { 
   fullScreen();
-  cp5 = new ControlP5(this);
-  //drawInputBox();
-  drawMainScreen();
   customer = new Client(this, "127.0.0.1", 5204); 
   coordinates = new ArrayList<String>();
   customer.write("New Customer: Hello World\n");
   ID = idPrefix+"Hello World";
   ready = true;
   customer.write("GPS: 1314242\n");
+    cp5 = new ControlP5(this);
+
+    drawInputBox();
+
 } 
 
 void draw(){
+  drawMainScreen();
   if(customer.available() > 0 && ready)
   {
     String message=null;
