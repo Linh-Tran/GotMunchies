@@ -1,6 +1,13 @@
 void drawMainScreen()
 {
-  
+  //Textlabel myTextlabelA;
+
+  //myTextlabelA = introPage.addTextlabel("label")
+  //                  .setText("Hungry or Stuffed?")
+  //                  .setPosition(100,50)
+  //                  .setColorValue(0xffffff00)
+  //                  .setFont(createFont("Georgia",20))
+  //                  ;
   background(#ED8F12);
   textSize(width/10);
   fill(0);
@@ -24,6 +31,7 @@ void drawMainScreen()
        if (mouseX < width/2) {
           //run function
           cp5.show();
+          println("showing cp5");
           sendLocation("boogers","candy");
           rect(0, 0, width/2, height); // Left
           //this is stuffed
