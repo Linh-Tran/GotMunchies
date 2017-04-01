@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 Client customer; 
 private String ID;
-private List<String> coordinates;
+private List<Pair> coordinates;
 public AtomicBoolean ready = new AtomicBoolean(true); 
  
  
@@ -16,7 +16,7 @@ void setup() {
     fullScreen();
 
   customer = new Client(this, "127.0.0.1", 5204); 
-  coordinates = new ArrayList<String>();
+  coordinates = new ArrayList<Pair>();
   customer.write(newCustomer+"Hello World\n");
   ID = idPrefix+"Hello World";
   //customer.write(newLocation+"1314242\n");
@@ -42,8 +42,9 @@ void draw(){
             println(temp[0]+" "+temp[1]);
             String GPStemp = temp[0];
             String Msgtemp = temp.length<1?"":temp[1];
-            coordinates.add(message);
-            print(GPStemp+" "+Msgtemp+"\n");
+            Pair<String, String> pair = new Pair(GPStemp, Msgtemp);
+            if(!coordinates.contains(pair))coordinates.add(pair);
+            
           }
           else if(message.contains(logout)){
             customer.stop();
