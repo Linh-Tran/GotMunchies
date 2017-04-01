@@ -21,6 +21,7 @@ void openStore(){
         order = customer.readStringUntil('\n');
       }
       if(order.contains(newLocation)){ 
+        GPScoordinates.add(order.replace(newLocation, ""));
         broadcastMenu(everyone+order);
       }
       else if(order.contains(newCustomer) && !customerInLine.containsKey(customer)){

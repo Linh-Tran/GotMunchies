@@ -5,11 +5,18 @@ Client customer;
 private String ID;
 private List<String> coordinates;
  
+ 
+ 
+ void sendLocation(String GPS, String msg){
+   customer.write(newLocation + GPS + ";" + msg + "\n");
+ }
+ 
 void setup() { 
   customer = new Client(this, "127.0.0.1", 5204); 
   coordinates = new ArrayList<String>();
   customer.write("New Customer: Hello World\n");
   ID = idPrefix+"Hello World";
+  customer.write("GPS: 1314242\n");
 } 
 void draw(){
   if(customer.available() > 0)
@@ -22,10 +29,16 @@ void draw(){
     if(message.contains(ID) || message.contains(everyone))//message targeted
     {
       if(message.contains(newLocation)){
-        
+        message = message.replace((message.contains(ID)?ID:everyone)+newLocation, "");
+        String[] temp = message.split(";");
+        String GPStemp = temp[0];
+        String Msgtemp = temp.length>1?"":temp[1];
+        coordinates.add(message);
+        print(GPStemp+" "+Msgtemp);
       }
+      
     }
-    print(message);
+   
   }
 }
 
