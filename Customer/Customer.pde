@@ -46,8 +46,9 @@ void draw(){
     {
       if(message.contains(newLocation)){
         message = message.replace((message.contains(ID)?ID:everyone)+newLocation, "");
+        message = message.replace(newLocation, "");
+        message = message.trim();
         String[] temp = message.split(";");
-        print(temp.length);
         String GPStemp = temp[0];
         String Msgtemp = temp.length>=1?"":temp[1];
         
