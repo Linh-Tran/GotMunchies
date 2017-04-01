@@ -5,3 +5,5 @@ public static final String logout = "Check please!: ";
 public static final String idPrefix = "ID: ";
 public static final String cardDecline = "Failed message!: ";
 public static final String cardAccepted = "Sucessful upload!: ";
+
+///adding
