@@ -14,7 +14,7 @@ void drawInputBox(){
                  
 }
 public void input(String theText) {
-  
+  //and open next map!
    cp5.hide();
 
   // automatically receives results from controller input

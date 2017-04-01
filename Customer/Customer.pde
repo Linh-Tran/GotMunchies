@@ -6,7 +6,7 @@ ControlP5 cp5;
 Client customer; 
 private String ID;
 private List<String> coordinates;
-public boolean ready = true; 
+public AtomicBoolean ready = new AtomicBoolean(true); 
  
  
  void sendLocation(String GPS, String msg){
@@ -16,6 +16,7 @@ public boolean ready = true;
  
 void setup() { 
   fullScreen();
+  cp5 = new ControlP5(this); //inputbox
   customer = new Client(this, "127.0.0.1", 5204); 
   coordinates = new ArrayList<String>();
   customer.write("New Customer: Hello World\n");
