@@ -9,16 +9,16 @@ void draw() {
     fill(0);
 text("Hungry or Stuffed?", width/20, height/3);
 
-fill(0);
+fill(#915300);
 rect(width-width/10-width/3,height-height/3,width/3,height/5);
-fill(0);
+fill(#915300);
 rect(width/10,height-height/3,width/3,height/5);
 
  textSize(width/15);
-fill(#ED8F12);
+fill(#FFC16F);
 text("search",width/6,height-height/3,width,height);
 
-fill(#ED8F12);
+fill(#FFC16F);
 text("eat",width-width/10-width/4.5,height-height/3,width,height);
 //rect(20,20,width,height);
 
