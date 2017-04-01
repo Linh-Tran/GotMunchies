@@ -1,10 +1,11 @@
 import processing.net.*; 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 Client customer; 
 private String ID;
 private List<String> coordinates;
-public boolean ready = true; 
+public AtomicBoolean ready = new AtomicBoolean(true); 
  
  
  void sendLocation(String GPS, String msg){
@@ -22,40 +23,45 @@ void setup() {
 } 
 void draw(){
   drawMainScreen();
-  if(customer.available() > 0 && ready)
+  if(customer.available() > 0 && ready.compareAndSet(true,false))
   {
-    ready = false;
-    String message=null;
-    while(message==null){
-      message = customer.readStringUntil('\n');
-    }
-    message = message.replaceAll("\n","");
-    if(message.length()>0){
-      if(message.contains(ID) || message.contains(everyone))//message targeted
-      {
-        if(message.contains(newLocation)){
-          message = message.replace((message.contains(everyone)?everyone:ID)+" "+newLocation, "");
-          String[] temp = message.split(";");
-          String GPStemp = temp[0];
-          String Msgtemp = temp.length>=1?"":temp[1];
-          
-          coordinates.add(message);
-          print(GPStemp+"\n");
-          
-        }
-        else if(message.contains(logout)){
-          customer.stop();
-        }
-        else if(message.contains(cardDecline)){
-          print("Please try again");
-        }
-        else if(message.contains(cardAccepted)){
-          print("Thank you, come again :)!");
-        }
-        
+    try {
+      String message=null;
+      while(message==null){
+        message = customer.readStringUntil('\n');
       }
+      message = message.replaceAll("\n","");
+      if(message.length()>0){
+        if(message.contains(ID) || message.contains(everyone))//message targeted
+        {
+          if(message.contains(newLocation)){
+            message = message.replace((message.contains(everyone)?everyone:ID), "");
+            message = message.replace(newLocation, "");
+            message = message.trim();
+            String[] temp = message.split(";");
+            println(temp[0]+" "+temp[1]);
+            String GPStemp = temp[0];
+            String Msgtemp = temp.length<1?"":temp[1];
+            coordinates.add(message);
+            print(GPStemp+" "+Msgtemp+"\n");
+          }
+          else if(message.contains(logout)){
+            customer.stop();
+          }
+          else if(message.contains(cardDecline)){
+            print("Please try again");
+          }
+          else if(message.contains(cardAccepted)){
+            print("Thank you, come again :)!");
+          }
+          
+        }
+      }
+    } catch(Exception e){
+      e.printStackTrace();
+    } finally {
+      ready.set(false);
     }
-   
   }
 }
 
