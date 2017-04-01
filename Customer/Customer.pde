@@ -10,16 +10,20 @@ void setup() {
   customer = new Client(this, "127.0.0.1", 5204); 
   customer.write("New Customer: Hello World\n");
   ID = idPrefix+"Hello World";
-  running();
 } 
-void running(){
+void draw(){
   if(customer.available() > 0)
   {
     String message=null;
     while(message==null){
       message = customer.readStringUntil('\n');
-      print(message);
+      
     }
+    if(message.contains(ID) || message.contains(everyone))//message targeted
+    {
+      
+    }
+    print(message);
   }
 }
 
