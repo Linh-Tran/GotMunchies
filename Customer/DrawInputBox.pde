@@ -15,7 +15,8 @@ void drawInputBox(){
 }
 public void input(String theText) {
   //and open next map!
-   cp5.hide();
+   sendLocation(theText,"A1532 Hacker St. NE");
+
 
   // automatically receives results from controller input
   println("a textfield event for controller 'input' : "+theText);

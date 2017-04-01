@@ -19,11 +19,11 @@ void drawMainScreen()
   text("eat",width-width/10-width/4.5,height-height/3,width,height);
   //rect(20,20,width,height);
 
-  if (mousePressed&&ready.compareAndSet(false,true)) {
+  if (mousePressed&&!ready) {
     //this is hungry
-    try {
        if (mouseX < width/2) {
           //run function
+          cp5.show();
           sendLocation("boogers","candy");
           rect(0, 0, width/2, height); // Left
           //this is stuffed
@@ -31,11 +31,6 @@ void drawMainScreen()
           //run function
           rect(width/2, 0, width/2, height); // Right
         }
-      } catch(Exception e){
-          e.printStackTrace();
-      } finally {
-          ready.set(true);
-      }
-    
+        ready = true;
   }
 }

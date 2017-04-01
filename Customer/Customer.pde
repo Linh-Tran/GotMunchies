@@ -6,7 +6,7 @@ ControlP5 cp5;
 Client customer; 
 private String ID;
 private List<String> coordinates;
-public AtomicBoolean ready = new AtomicBoolean(true); 
+public boolean ready = true; 
  
  
  void sendLocation(String GPS, String msg){
@@ -24,6 +24,7 @@ void setup() {
   ready = true;
   customer.write("GPS: 1314242\n");
     cp5 = new ControlP5(this);
+   cp5.hide();
 
     drawInputBox();
 
