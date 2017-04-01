@@ -1,6 +1,8 @@
 import processing.net.*; 
 import java.util.*;
+import controlP5.*;
 
+ControlP5 cp5;
 Client customer; 
 private String ID;
 private List<String> coordinates;
@@ -13,8 +15,10 @@ public boolean ready = true;
  }
  
 void setup() { 
-    fullScreen();
-
+  fullScreen();
+  cp5 = new ControlP5(this);
+  //drawInputBox();
+  drawMainScreen();
   customer = new Client(this, "127.0.0.1", 5204); 
   coordinates = new ArrayList<String>();
   customer.write("New Customer: Hello World\n");
@@ -22,8 +26,8 @@ void setup() {
   ready = true;
   customer.write("GPS: 1314242\n");
 } 
+
 void draw(){
-  drawMainScreen();
   if(customer.available() > 0 && ready)
   {
     String message=null;
