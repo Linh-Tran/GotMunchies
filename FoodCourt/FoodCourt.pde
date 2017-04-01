@@ -51,5 +51,5 @@ void openStore(){
 * Update all the customer's map
 */
 void broadcastMenu(String message){
-  myServer.write(message);
+  myServer.write(message.replaceAll("\n","")+"\n");
 }

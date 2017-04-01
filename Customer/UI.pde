@@ -19,7 +19,7 @@ void drawMainScreen()
   text("eat",width-width/10-width/4.5,height-height/3,width,height);
   //rect(20,20,width,height);
 
-  if (mousePressed) {
+  if (mousePressed&&!ready) {
     //this is hungry
     if (mouseX < width/2) {
       //run function
@@ -30,5 +30,6 @@ void drawMainScreen()
       //run function
       rect(width/2, 0, width/2, height); // Right
     }
+    ready=true;
   }
 }
