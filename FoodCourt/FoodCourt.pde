@@ -1,5 +1,5 @@
 import processing.net.*;
-
+//kim is comment
 Server myServer;
 int val = 0;
 
